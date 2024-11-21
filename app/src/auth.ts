@@ -3,7 +3,6 @@ import GitHub from "next-auth/providers/github"
 import Google from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { SigninMessage } from "./utils/SignInMessage"
-import { getCsrfToken } from "next-auth/react"
  
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -42,8 +41,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
           return {
             id: signinMessage.publicKey,
           };
-        } catch (e) {
-          return null;
+        } catch (e: Error) {
+          throw new Error(`${e.me}`);
         }
       },
     }),

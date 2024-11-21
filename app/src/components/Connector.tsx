@@ -12,6 +12,8 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 import Header from "./Header";
 import { Session } from "next-auth";
 import { SendTransaction } from "./SendTransaction";
+import { WorkspaceProvider } from "@/context/anchor";
+import { StakeMarket } from "./StakeMarket";
 
 export const Connector = ({ session }: { session: Session | null }) => {
   // const network = WalletAdapterNetwork.Devnet;
@@ -30,8 +32,10 @@ export const Connector = ({ session }: { session: Session | null }) => {
       <WalletProvider wallets={wallets} autoConnect>
         <WalletModalProvider>
           <SessionProvider session={session} refetchInterval={0}>
-            <Header />
-            <SendTransaction />
+            <WorkspaceProvider>
+              <Header />
+              <StakeMarket />
+            </WorkspaceProvider>
           </SessionProvider>
         </WalletModalProvider>
       </WalletProvider>
